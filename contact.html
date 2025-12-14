@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Merriweather:wght@700&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Jeff Iberdo Thomas | Reach Out</title>
+      <link rel="stylesheet" href="css/reachout.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="name-title">
+          <span class="name">Jeff Iberdo Thomas</span>
+          <span class="title">Cloud Administrator</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+      </div>
+    </header>
+
+    <nav id="sideMenu">
+      <ul>
+        <li><a href="index.html#Bio">Bio</a></li>
+        <li><a href="projects.html">Project</a></li>
+        <li><a href="certifications.html">Certification</a></li>
+        <li><a href="contact.html">Reach Out</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="profile-carousel">
+        <div class="circle">
+          <img src="images/profile1.jpg" alt="Profile 1" id="carousel-img" />
+        </div>
+        <h2>Jeff Iberdo Thomas</h2>
+        <h3>Cloud Administrator</h3>
+        <p class="tagline">Building and managing secure, scalable cloud systems.</p>
+      </section>
+
+      <section class="reachout">
+        <h2 class="section-title">Reach Out</h2>
+
+        <!-- Video introduction -->
+        <div class="video-container">
+          <video controls>
+            <source src="./images/website.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Contact info -->
+        <div class="contact-info">
+          <p><strong>Phone:</strong> (123) 456-7890</p>
+          <p><strong>Email:</strong> jeffiberdothomas03@gmail.com</p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+        </div>
+
+        <!-- Call to action -->
+        <div class="cta-buttons">
+          <a href="resume.pdf" class="btn">Download Resume</a>
+          <a href="https://github.com/yourusername" class="btn">View GitHub Projects</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p>Address: Haiti / 509</p>
+        <p>Phone: 4733-0044</p>
+        <p>Email: jeffiberdothomas03@gmail.com</p>
+        <p>Business Hours : 8:00 AM to 4:00 PM EST</p>
+        <p>© 2025 Thomas. All rights reserved.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Social & Engagement</h4>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/idotagain" target="_blank" rel="noopener">
+          <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/idotagain" target="_blank" rel="noopener">
+          <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/idotagain" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <p><a href="#">Subscribe to Newsletter</a></p>
+        
+      </div>
+
+      <div class="footer-section">
+        <h4>Community & Support</h4>
+        <p><a href="#">Customer Support</a></p>
+        <p><a href="#">Live Chat</a></p>
+        <p><a href="#">Community Forum</a></p>
+        <p><a href="#">Frequently ask questions</a></p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Navigation / Information</h4>
+        <p><a href="#">About Us</a></p>
+        <p><a href="#">Careers</a></p>
+        <p><a href="#">Blog / News</a></p>
+        <p><a href="#">Services / Products</a></p>
+        <p><a href="#">Site Map</a></p>
+      </div>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Elements (safe checks)
+    const sideMenu = document.getElementById("sideMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const menuLinks = document.querySelectorAll("#sideMenu a");
+    const carouselImg = document.getElementById("carousel-img");
+
+    // If sideMenu or hamburger missing, bail out gracefully
+    if (!sideMenu || !hamburger) return;
+
+    // small guard to avoid the immediate document click closing the menu
+    let ignoreNextDocClick = false;
+
+    // Toggle function (keeps inline onclick working, but prefer adding listener)
+    function toggleMenuInternal() {
+      sideMenu.classList.toggle("open");
+      document.body.classList.toggle("menu-open");
+      // ignore the very next document click (which is the same click that opened the menu)
+      ignoreNextDocClick = true;
+      // reset after a short delay
+      setTimeout(() => { ignoreNextDocClick = false; }, 50);
+    }
+
+    // If you currently use inline onclick="toggleMenu()", keep it.
+    // Otherwise attach this function to the hamburger (preferred)
+    // Remove the comment from the next line and delete the inline onclick if you want.
+    // hamburger.addEventListener("click", toggleMenuInternal);
+
+    // Also expose a global function name if your HTML uses onclick="toggleMenu()"
+    window.toggleMenu = toggleMenuInternal;
+
+    // Close menu when clicking outside or on a link
+    document.addEventListener("click", (event) => {
+      // If we're ignoring the immediate next click, do nothing
+      if (ignoreNextDocClick) return;
+
+      // If click is inside the menu or on the hamburger, do nothing
+      const isClickInsideMenu = sideMenu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+      if (isClickInsideMenu || isClickOnHamburger) return;
+
+      // Otherwise close the menu
+      sideMenu.classList.remove("open");
+      document.body.classList.remove("menu-open");
+    });
+
+    // Close menu when a menu link is clicked
+    if (menuLinks && menuLinks.length) {
+      menuLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          sideMenu.classList.remove("open");
+          document.body.classList.remove("menu-open");
+        });
+      });
+    }
+
+    // -------------------
+    // Profile image carousel (safe: checks image element & paths)
+    // -------------------
+    const images = [
+      "images/profile1.jpg",
+      "images/profile2.jpg",
+      "images/profile3.jpg"
+    ];
+
+    if (carouselImg) {
+      // preload images to avoid flicker
+      images.forEach(src => {
+        const pre = new Image();
+        pre.src = src;
+      });
+
+      let index = 0;
+      // ensure starting src matches first image if missing or different
+      if (!carouselImg.src || carouselImg.src.endsWith("/")) {
+        carouselImg.src = images[0];
+      } else {
+        // try to normalize if file names are used without folder in some places
+        // not required, but keeps carousel consistent
+        carouselImg.src = images[0];
+      }
+
+      // set initial opacity style if not present
+      carouselImg.style.transition = carouselImg.style.transition || "opacity 0.6s ease-in-out";
+      carouselImg.style.opacity = 1;
+
+      setInterval(() => {
+        index = (index + 1) % images.length;
+        // fade out, change src, fade in
+        carouselImg.style.opacity = 0;
+        setTimeout(() => {
+          carouselImg.src = images[index];
+          carouselImg.style.opacity = 1;
+        }, 500);
+      }, 3000);
+    }
+    }); // DOMContentLoaded
+    </script>
+
+  </body>
+</html>
