@@ -131,3 +131,53 @@ Automated deployment pipeline using GitHub Actions.
 Verified everything locally with AWS CLI.
 
 Connected VS Code → GitHub → AWS for seamless updates.
+
+Also
+
+This project hosts **jeffiberdothomas.com** on AWS with a fully automated CI/CD pipeline (VS Code → GitHub → Actions → S3 → CloudFront).  
+A key part of the setup is enforcing a **canonical redirect** so that all traffic resolves to the root domain:
+
+- ✅ `http://jeffiberdothomas.com` → `https://jeffiberdothomas.com`
+- ✅ `http://www.jeffiberdothomas.com` → `https://jeffiberdothomas.com`
+- ✅ `https://www.jeffiberdothomas.com` → `https://jeffiberdothomas.com`
+
+
+---
+
+## Steps Taken for Canonical Redirect
+
+1. **Created S3 Buckets**
+   - `jeffiberdothomas.com` → Primary hosting bucket (static site hosting disabled, used only with CloudFront).
+   - `www.jeffiberdothomas.com` → Redirect bucket configured to forward all requests to the root domain.
+
+2. **Configured Redirect Bucket**
+   - Enabled static website hosting on the `www` bucket.
+   - Set redirect rules to forward all traffic to `https://jeffiberdothomas.com`.
+
+3. **Set Up Route 53 Records**
+   - Added `A` and `AAAA` records for both root and `www` domains.
+   - Pointed them to the CloudFront distribution.
+
+4. **Provisioned SSL Certificates (ACM)**
+   - Requested certificates for both `jeffiberdothomas.com` and `www.jeffiberdothomas.com`.
+   - Validated via DNS in Route 53.
+
+5. **Deployed CloudFront Distribution**
+   - Origin: S3 bucket (`jeffiberdothomas.com`).
+   - Alternate domain names: `jeffiberdothomas.com`, `www.jeffiberdothomas.com`.
+   - Attached ACM certificate for HTTPS.
+   - Configured default behavior to enforce HTTPS.
+
+6. **Verified Redirects**
+   - Used `curl -I http://www.jeffiberdothomas.com` → Confirmed `301 Moved Permanently` to `https://jeffiberdothomas.com`.
+   - Tested in browser to ensure seamless redirect.
+
+---
+
+## Result
+
+All traffic, whether typed with or without `www`, is redirected to the secure root domain:
+
+**👉 https://jeffiberdothomas.com**
+
+This guarantees a single canonical URL and it is AWS best practices.
