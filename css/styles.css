@@ -1,3 +1,6 @@
+/* --------------------------------------------------
+   GLOBAL RESET & BASE
+-------------------------------------------------- */
 * {
   box-sizing: border-box;
 }
@@ -7,8 +10,7 @@ html {
 }
 
 body {
-  margin-block-start: 2px;
-  margin-inline: 100px;
+  margin: 2px 100px;
   font-family: 'Open Sans', sans-serif;
   background: #f4f4f4;
   color: #1b281b;
@@ -16,81 +18,86 @@ body {
   line-height: 1.6;
 }
 
-/* Fixed Header */
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+
   z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #f2f2f2;
   padding: 10px 60px;
-  margin: 0;                 /* remove any margin */
-  box-sizing: border-box;    /* prevent padding from causing overflow */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* soft shadow */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-/* Right side: hamburger menu */
-.header-right {
+.header-right{
   display: flex;
   align-items: center;
+  
 }
 
-.header-left {
+.header-left
+ {
   display: flex;
   align-items: center;
+  flex: 1;
+  min-width: 0;   /* critical */
+
+
 }
 
 .name-title {
   display: flex;
   align-items: baseline;
-  gap: 15px; /* spacing between name and title */
-
+  gap: 10px;
+  flex-wrap: wrap;   /* allows text to move to next line */
+  min-width: 0;      /* prevents overflow in flexbox */
 
 }
-
 
 .name-title .name {
   font-size: 2.125rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
-
 }
 
 .name-title .title {
-  font-size: 1.250rem;
-  font-family: Cursive, sans-serif;
+  font-size: 1.25rem;
+  font-family: cursive, sans-serif;
   font-weight: 300;
   color: #4676a9;
-  
-  padding-top: 4px; /* optional fine-tuning */
-
+  padding-top: 4px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis
 
 }
 
-
-/* Hamburger Icon */
+/* Hamburger */
 .hamburger {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #cccccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* soft shadow */
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   line-height: 40px;
   font-size: 1.5rem;
   cursor: pointer;
 }
 
-/* Slide-out Navigation Menu */
+/* --------------------------------------------------
+   SIDE MENU
+-------------------------------------------------- */
 #sideMenu {
   position: fixed;
-  top:  65px;
+  top: 65px;
   right: -220px;
   width: 200px;
   background: #053970;
@@ -100,9 +107,7 @@ header {
   border-radius: 10px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.35);
   z-index: 999;
- 
 }
-
 
 #sideMenu.open {
   right: 0;
@@ -112,13 +117,10 @@ header {
   list-style: none;
   padding: 0;
   margin: 0;
-  
 }
 
 #sideMenu li {
   padding: 15px 20px;
-  margin: 0;
-  
 }
 
 #sideMenu a {
@@ -126,23 +128,20 @@ header {
   text-decoration: none;
   display: block;
   transition: background 0.2s;
-  font-family: 'Open Sans', sans-serif;
-
 }
-
 
 #sideMenu a:hover {
   background: #13bce61a;
 }
 
-
-/* Prevent content from hiding behind fixed header */
+/* --------------------------------------------------
+   MAIN CONTENT
+-------------------------------------------------- */
 main {
-  padding: 40px 40px 20px; 
-
+  padding: 40px 40px 20px;
 }
 
-
+/* Profile Carousel */
 .profile-carousel {
   text-align: center;
   padding: 40px 20px;
@@ -153,32 +152,30 @@ main {
 }
 
 .profile-carousel h2 {
-  margin: 5px 0 1px; /* Less space below name */
+  margin: 5px 0 1px;
   font-size: 2.125rem;
-  font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
-
 }
 
 .profile-carousel h3 {
-  margin: 0 0 2px; /* Less space above tagline */
-  font-size: 1.250rem;
-  font-family: cursive, sans-serif; /* Thin, modern font */
-  font-weight: 300; /* Light weight */
+  margin: 0 0 2px;
+  font-size: 1.25rem;
+  font-family: cursive, sans-serif;
+  font-weight: 300;
   color: #4676a9;
 }
 
 .profile-carousel .tagline {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional, readable, and elegant */
-  font-weight: 400;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-style: italic;
 }
 
 .circle {
   width: 180px;
   height: 180px;
-   border-radius: 50%;
+  border-radius: 50%;
   overflow: hidden;
   margin: 0 auto 6px;
   border: 4px solid #007acc;
@@ -189,229 +186,127 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.6s ease-in-out;
 }
 
-
+/* --------------------------------------------------
+   BIO SECTION
+-------------------------------------------------- */
 .bio-section {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding-inline: 5px;
-  background: white;
-}
-
-.bio-block {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.bio-image {
-  flex: 0 0 300px;
-  height: 300px;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.bio-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.bio-text {
-  flex: 1;
-  min-width: 200px;
-}
-
-
-.bio-section {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  max-width: 1100px; /* cleaner, more readable width */
+  margin: 0 auto;
   padding: 40px 20px;
   background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
-
 
 .bio-paragraph {
   overflow: hidden;
 }
 
-.float-image {
-  float: right;
+.bio-paragraph p {
+  margin: 0 0 1rem;
+  text-align: justify;
+  text-indent: 2em;
+}
+
+/* Float Images */
+.float-image,
+.float-image-left {
   width: 300px;
   height: 300px;
   object-fit: cover;
-  margin-left: 20px;
+  border-radius: 8px;
   margin-bottom: 5px;
-  border-radius: 8px;
 }
 
-/* Flex layout for other blocks */
-.bio-block {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.bio-image {
-  flex: 0 0 150px;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.bio-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.bio-text {
-  flex: 1;
-  min-width: 200px;
-}
-
-.bio-text p,
-.bio-paragraph p {
-  margin: 0;
-  text-align: justify;         /* Aligns both left and right edges */
-  min-height: 150px;   
-  text-indent: 2em;
-
-}
-
-.bio-paragraph.left-float {
-  overflow: hidden;
-  margin-bottom: 30px;
+.float-image {
+  float: right;
+  margin-left: 20px;
 }
 
 .float-image-left {
   float: left;
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
   margin-right: 20px;
-  margin-bottom: 5px;
-  border-radius: 8px;
 }
 
-.bio-paragraph.left-float p {
-  margin: 0;
-  text-align: justify;
-  min-height: 150px;
-}
-.bio-paragraph p::first-letter,
-.bio-text p::first-letter {
-  font-size: 200%;
+/* First-letter styling */
+.bio-section .bio-paragraph:first-of-type p:first-of-type::first-letter {
+  font-size: 240%;                 /* slightly larger for elegance */
   font-weight: 700;
-  font-family: 'Cormorant Garamond', serif; /* Matches your h2 style */
-  vertical-align: baseline;
-  padding-right: 2px;
-  line-height: 1;
+  font-family: 'Cormorant Garamond', serif;
+  color: #2a4d7a;                  /* refined deep blue */
+  padding-right: 4px;
+  line-height: 0.9;
+  display: inline-block;           /* required for animation */
+  animation: dropcapFade 0.6s ease-out;
 }
 
 #bio {
-  scroll-margin-top: 80px; /* Adjust based on your header height */
+  scroll-margin-top: 80px;
 }
 
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
 footer {
   background: #22466c;
-  display: flex;
-  flex-wrap: wrap;
   padding: 5px;
-  margin-block-end: 15px;
   border-radius: 8px;
+  display: flex;
   justify-content: center;
-
-  
 }
 
 .footer-container {
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 25px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  width: 90%;
-  padding-inline: 5px;
-  padding-block-end: 25px;;
   gap: 14px;
-  margin: 0 auto;
-  color: #cccccc;
-  box-sizing: border-box;
+  color: #ccc;
   text-align: center;
   font-size: 0.8rem;
 }
 
 .footer-section {
-  flex: 1 1  calc(25% - 14px);
-  margin-bottom: 5px;
-  padding-inline: 10px;
-  box-sizing: border-box;
-  line-height: 1.5rem;
-  
-
+  flex: 1 1 calc(25% - 14px);
+  padding: 10px;
 }
-
 
 .footer-section h4 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.2rem;
   margin-bottom: 12px;
-  
   border-bottom: 1px solid #444;
   padding-bottom: 6px;
 }
 
-
-
 .footer-section p,
 .footer-section a {
-  
   color: inherit;
   text-decoration: none;
   margin: 2px 0;
   transition: color 0.3s ease;
- 
 }
 
-@media (max-width: 768px) {
-  .footer-section {
-    flex: 1 1 100%;
-    margin-bottom: 14px;
-  }
-}
-
-
-
+/* Social Icons */
 .social-icons {
   display: flex;
   gap: 16px;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
-.social-icons img {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1);
+.social-icons a {
   transition: transform 0.3s ease;
 }
 
-.social-icons img:hover {
-  transform: scale(1.1);
-}
-.social-icons a {
-  transition: transform 0.3s ease, 
-  color 0.3s ease;
-}
-
 .social-icons a:hover {
-  
   transform: scale(1.3) rotate(5deg);
 }
 
@@ -420,8 +315,28 @@ footer {
   50% { transform: translateY(-6px); }
 }
 
-
 .social-icons a:hover i {
   animation: bounce 0.4s ease;
- 
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+@media (max-width: 768px) {
+  body {
+    margin-inline: 20px;
+  }
+
+  .footer-section {
+    flex: 1 1 100%;
+  }
+
+  .float-image,
+  .float-image-left {
+    float: none;
+    display: block;
+    margin: 0 auto 20px;
+    width: 100%;
+    height: auto;
+  }
 }
