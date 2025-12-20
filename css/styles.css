@@ -35,6 +35,9 @@ header {
   padding: 10px 60px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+
+
 .header-right{
   display: flex;
   align-items: center;
@@ -138,7 +141,14 @@ header {
    MAIN CONTENT
 -------------------------------------------------- */
 main {
+  margin-top: 80px; /* header height + spacing */
   padding: 40px 40px 20px;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding-top: 120px; /* header grows on mobile */
+  }
 }
 
 /* Profile Carousel */
