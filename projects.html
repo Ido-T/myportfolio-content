@@ -8,20 +8,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jeff Iberdo Thomas | Cloud Administrator</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/projects.css" />
 </head>
 <body>
   <header>
-  <div class="header-left">
-    <div class="name-title">
-      <span class="name">Jeff Iberdo Thomas</span>
-      <span class="title">Cloud Administrator</span>
+    <div class="header-left">
+      <div class="name-title">
+        <span class="name">Jeff Iberdo Thomas</span>
+        <span class="title">Cloud Administrator</span>
+      </div>
     </div>
-  </div>
-  <div class="header-right">
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-  </div>
-</header>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+  </header>
 
 <nav id="sideMenu">
   <ul>
@@ -41,144 +41,110 @@
       <h3>Cloud Administrator</h3>
       <p class="tagline">Building and managing secure, scalable cloud systems.</p>
     </section>
+    <section class="featured-projects">
+    <h2>Featured Projects</h2>
 
-<section class="bio-section">
-  <!-- First paragraph with float-based layout -->
-  <div class="bio-paragraph">
-    <img src="images/bio-pic1.jpg" alt="Bio 1" class="float-image" />
-    <p>
-As a Cloud Administrator, I specialize in designing, deploying, and maintaining secure, scalable, 
-	  and high-performance cloud infrastructures within the Amazon Web Services (AWS) ecosystem. 
-	  My name is Jeff Iberdo Thomas, and I am an AWS Certified Cloud Practitioner, 
-	  equipped with a solid understanding of cloud architecture principles, cost optimization strategies, 
-	  and industry-leading best practices for security and governance.
-	  My core expertise includes configuring and managing AWS services such as EC2, S3, VPC, IAM, RDS, and CloudWatch, 
-	  as well as implementing Infrastructure as Code (IaC) solutions using AWS CloudFormation and Terraform to automate provisioning and ensure consistency across environments.
+    <div class="carousel" id="projectCarousel">
 
-I focus on building fault-tolerant systems with high availability and elasticity, 
-applying AWS services like Auto Scaling, Elastic Load Balancing, and CloudFront to enhance performance and user experience. 
-I also have experience managing identity and access management policies to enforce the principle of least privilege and maintain compliance with security frameworks.
- Monitoring, logging, and incident response are key areas of my workflow, where I utilize CloudWatch, CloudTrail, and other observability tools 
- to maintain visibility into system health and proactively address potential issues.
+      <div class="carousel-track">
 
-My approach to cloud administration combines hands-on technical execution with a deep understanding of cloud economics, 
-enabling organizations to balance cost efficiency with operational excellence. 
-I am passionate about continuous learning and keep pace with emerging AWS technologies such as Lambda, ECS, and EKS, exploring serverless and 
-containerized solutions that drive agility and scalability.
+        <!-- Slide 1 -->
+        <article class="featured-card">
+          <img src="images/project-aws.jpg" alt="AWS Infrastructure">
+          <div class="content">
+            <h3>AWS Secure Infrastructure</h3>
+            <p>
+              Designed a secure AWS environment using VPC, EC2, IAM,
+              security groups, and monitoring.
+            </p>
+            <ul class="tech">
+              <li>AWS</li><li>EC2</li><li>VPC</li><li>IAM</li>
+            </ul>
+          </div>
+        </article>
 
-With a commitment to reliability, automation, and security, 
-I strive to ensure that every system I manage supports the organization’s goals for resilience, compliance, and innovation.
- My mission as a Cloud Administrator is not only to maintain robust cloud environments but also 
- to contribute to strategic decision-making—aligning infrastructure design with long-term business objectives and digital transformation initiatives.    </p>
-  </div>
+        <!-- Slide 2 -->
+        <article class="featured-card">
+          <img src="images/project-linux.jpg" alt="Linux Server">
+          <div class="content">
+            <h3>Linux Server Hardening</h3>
+            <p>
+              Hardened Linux servers with SSH security, firewall rules,
+              and automated updates.
+            </p>
+            <ul class="tech">
+              <li>Linux</li><li>UFW</li><li>SSH</li>
+            </ul>
+          </div>
+        </article>
 
-  <!-- Second paragraph with flex layout -->
-  <div class="bio-paragraph left-float">
-  <img src="images/bio-pic2.jpg" alt="Bio 2" class="float-image-left" />
-  <p>
-  As a Cloud Administrator, I specialize in designing, deploying, and maintaining secure, scalable, 
-	  and high-performance cloud infrastructures within the Amazon Web Services (AWS) ecosystem. 
-	  My name is Jeff Iberdo Thomas, and I am an AWS Certified Cloud Practitioner, 
-	  equipped with a solid understanding of cloud architecture principles, cost optimization strategies, 
-	  and industry-leading best practices for security and governance.
-	  My core expertise includes configuring and managing AWS services such as EC2, S3, VPC, IAM, RDS, and CloudWatch, 
-	  as well as implementing Infrastructure as Code (IaC) solutions using AWS CloudFormation and Terraform to automate provisioning and ensure consistency across environments.
+        <!-- Slide 3 -->
+        <article class="featured-card">
+          <img src="images/project-monitoring.jpg" alt="Monitoring">
+          <div class="content">
+            <h3>Cloud Monitoring & Alerts</h3>
+            <p>
+              Implemented CloudWatch dashboards and alerts
+              for performance and uptime.
+            </p>
+            <ul class="tech">
+              <li>CloudWatch</li><li>AWS</li><li>Monitoring</li>
+            </ul>
+          </div>
+        </article>
 
-I focus on building fault-tolerant systems with high availability and elasticity, 
-applying AWS services like Auto Scaling, Elastic Load Balancing, and CloudFront to enhance performance and user experience. 
-I also have experience managing identity and access management policies to enforce the principle of least privilege and maintain compliance with security frameworks.
- Monitoring, logging, and incident response are key areas of my workflow, where I utilize CloudWatch, CloudTrail, and other observability tools 
- to maintain visibility into system health and proactively address potential issues.
+      </div>
 
-My approach to cloud administration combines hands-on technical execution with a deep understanding of cloud economics, 
-enabling organizations to balance cost efficiency with operational excellence. 
-I am passionate about continuous learning and keep pace with emerging AWS technologies such as Lambda, ECS, and EKS, exploring serverless and 
-containerized solutions that drive agility and scalability.
+      <!-- Dots -->
+      <div class="carousel-dots"></div>
 
-With a commitment to reliability, automation, and security, 
-I strive to ensure that every system I manage supports the organization’s goals for resilience, compliance, and innovation.
- My mission as a Cloud Administrator is not only to maintain robust cloud environments but also 
- to contribute to strategic decision-making—aligning infrastructure design with long-term business objectives and digital transformation initiatives.
-  </p>
-</div>
+    </div>
+  </section>
+      <!-- PROJECT GRID -->
+    <section class="projects">
+      <h2>All Projects</h2>
 
-  <!-- Third paragraph with flex layout -->
-  <div class="bio-paragraph">
-  <img src="images/bio-pic3.jpg" alt="Bio 3" class="float-image" />
-  <p>
-As a Cloud Administrator, I specialize in designing, deploying, and maintaining secure, scalable, 
-	  and high-performance cloud infrastructures within the Amazon Web Services (AWS) ecosystem. 
-	  My name is Jeff Iberdo Thomas, and I am an AWS Certified Cloud Practitioner, 
-	  equipped with a solid understanding of cloud architecture principles, cost optimization strategies, 
-	  and industry-leading best practices for security and governance.
-	  My core expertise includes configuring and managing AWS services such as EC2, S3, VPC, IAM, RDS, and CloudWatch, 
-	  as well as implementing Infrastructure as Code (IaC) solutions using AWS CloudFormation and Terraform to automate provisioning and ensure consistency across environments.
+      <div class="grid">
+        <div class="card">
+          <img src="images/project-linux.jpg" alt="Linux Server">
+          <h3>Linux Server Hardening</h3>
+          <p>Secured Linux servers with firewall rules, SSH hardening, and monitoring.</p>
+          <span>System Administration</span>
+        </div>
 
-I focus on building fault-tolerant systems with high availability and elasticity, 
-applying AWS services like Auto Scaling, Elastic Load Balancing, and CloudFront to enhance performance and user experience. 
-I also have experience managing identity and access management policies to enforce the principle of least privilege and maintain compliance with security frameworks.
- Monitoring, logging, and incident response are key areas of my workflow, where I utilize CloudWatch, CloudTrail, and other observability tools 
- to maintain visibility into system health and proactively address potential issues.
+        <div class="card">
+          <img src="images/project-monitoring.jpg" alt="Monitoring">
+          <h3>Cloud Monitoring & Alerts</h3>
+          <p>Implemented CloudWatch dashboards and alerting strategies.</p>
+          <span>Cloud Operations</span>
+        </div>
 
-My approach to cloud administration combines hands-on technical execution with a deep understanding of cloud economics, 
-enabling organizations to balance cost efficiency with operational excellence. 
-I am passionate about continuous learning and keep pace with emerging AWS technologies such as Lambda, ECS, and EKS, exploring serverless and 
-containerized solutions that drive agility and scalability.
+        <div class="card">
+          <img src="images/project-network.jpg" alt="Networking">
+          <h3>Network Configuration</h3>
+          <p>Configured routing, VPN access, and firewall security.</p>
+          <span>Networking</span>
+        </div>
+      </div>
+    </section>
 
-With a commitment to reliability, automation, and security, 
-I strive to ensure that every system I manage supports the organization’s goals for resilience, compliance, and innovation.
- My mission as a Cloud Administrator is not only to maintain robust cloud environments but also 
- to contribute to strategic decision-making—aligning infrastructure design with long-term business objectives and digital transformation initiatives.  </p>
-</div>
-</section>
+      <!-- CTA -->
+    <section class="cta">
+      <h2>Let’s Work Together</h2>
+      <p>Open to cloud administration and infrastructure roles.</p>
+      <a href="contact.html">Reach Out</a>
+    </section>
+  
   </main>
 
   <footer>
-      <div class="footer-container">
-
-        <div class="footer-section">
-          <h4>Contact Info</h4>
-          <p>Address: Haiti / 509</p>
-          <p>Phone: 4733-0044</p>
-          <p>Email: jeffiberdothomas03@gmail.com</p>
-          <p>Business Hours : 8:00 AM to 4:00 PM EST</p>
-          <p>© 2025 Thomas. All rights reserved.</p>
-        </div>
-
-        <div class="footer-section">
-          <h4>Social & Engagement</h4>
-          <div class="social-icons">
-            <a href="https://www.facebook.com/idotagain" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/idotagain" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/idotagain" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            
-          </div>
-          <p><a href="#">Subscribe to Newsletter</a></p>
-        </div>
-
-        <div class="footer-section">
-          <h4>Community & Support</h4>
-          <p><a href="#">Customer Support</a></p>
-          <p><a href="#">Live Chat</a></p>
-          <p><a href="#">Community Forum</a></p>
-          <p><a href="#">Frequently ask questions</a></p>
-        </div>
-
-        <div class="footer-section">
-          <h4>Navigation / Information</h4>
-          <p><a href="#">About Us</a></p>
-          <p><a href="#">Careers</a></p>
-          <p><a href="#">Blog / News</a></p>
-          <p><a href="#">Services / Products</a></p>
-          <p><a href="https://www.google.com/maps?q=26, Ruelle de la Fonda, Vertieres, Cap Haitien, Haiti" target="_blank">Site Map</a></p>
-        </div>
-
-      </div>
-    </footer>
+      <p>© 2025 Jeff Iberdo Thomas — Cloud Administrator</p>
+  </footer>
 
     <script src="Javascript/menu.js"></script>
     <script src="Javascript/carousel.js"></script>
     <script src="Javascript/animations.js"></script>
+    <script src="Javascript/project.js"></script>
 
 
 

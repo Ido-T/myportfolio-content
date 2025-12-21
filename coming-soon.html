@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon – Sync</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #00a884;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #008f72;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>We Are Almost There</h1>
+        <p>Join our newsletter to be the first to know when Sync launches and receive updates on the latest in technology and AI.</p>
+
+        <input type="email" id="email" placeholder="Enter your email">
+
+        <button class="btn" onclick="sendWhatsApp()">Notify Me</button>
+    </div>
+
+    <script>
+        function sendWhatsApp() {
+            const email = document.getElementById('email').value;
+            const phone = '1XXXXXXXXXX'; // <-- your WhatsApp number
+            const message = encodeURIComponent(`Hi, I want to join the Sync newsletter. My email is: ${email}`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+
+</body>
+</html>

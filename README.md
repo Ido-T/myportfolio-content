@@ -1,183 +1,246 @@
-Automated Portfolio Deployment Documentation
+# 🚀 Automated Portfolio Deployment & Cloud Architecture  
+[![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws)]()  
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-blue?logo=githubactions)]()  
+[![CloudFront](https://img.shields.io/badge/CloudFront-CDN-purple?logo=amazonaws)]()  
+[![S3](https://img.shields.io/badge/S3-Static%20Hosting-red?logo=amazonaws)]()  
 
-1. Project Overview
+This repository contains the source code and automated deployment pipeline for **jeffiberdothomas.com**, a globally distributed portfolio website hosted on **Amazon S3** and delivered securely through **Amazon CloudFront**.
 
-I have built a static portfolio website hosted on an Amazon S3 bucket. To ensure fast, secure, and global delivery, I configured Amazon CloudFront as the CDN. Updates to my site are automated through GitHub Actions, so every push to my repository triggers a deployment pipeline that:
-
-    a. Syncs files to S3.
-
-    b. Invalidates CloudFront cache.
-
-    c. Ensures users always see the latest version of my site.
-
-2. IAM User Setup.
-
-a. Created an IAM user: github-s3-cloudf....
-
-b. Attached a custom policy granting:
-
-    + S3 permissions: PutObject, GetObject, ListBucket, DeleteObject for my bucket (myportfolio-website-jeffiberdothomas).
-
-    + CloudFront permission: cloudfront:CreateInvalidation for my distribution (distributionName).
-
-c. Stored the IAM user’s Access Key ID and Secret Access Key as GitHub repository secrets.
-
-3. GitHub Repository
-
-a.  Created a GitHub repository to store my website source code (index.html, CSS, images, etc.).
-
-b.  Connected VS Code to GitHub (via Git integration).
-
-c.  Workflow: edit locally → commit → push to main → GitHub Actions deploys automatically.
-
-4. GitHub Actions Workflow (deploy.yml)
-
-a.  Located in .github/workflows/deploy.yml:
-    that is the content in the .yml file in the workfols folder.
-        name: Deploy Portfolio to AWS
-
-        on:
-        push:
-            branches:
-            - main
-
-        jobs:
-        deploy:
-            runs-on: ubuntu-latest
-
-            steps:
-            - name: Checkout repository
-                uses: actions/checkout@v3
-
-            - name: Configure AWS credentials
-                uses: aws-actions/configure-aws-credentials@v4
-                with:
-                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws-region: ${{ secrets.AWS_REGION }}
-
-            - name: Sync files to S3
-                run: aws s3 sync . s3://${{ secrets.S3_BUCKET }} --delete --exclude ".git/*" --exclude ".github/*"
-
-            - name: Invalidate CloudFront cache
-                run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
-
-
-
-Explanation:
-
-Checkout repository: Pulls my code from GitHub.
-
-Configure AWS credentials: Uses secrets to authenticate with AWS.
-
-Sync files to S3: Uploads my latest files to the bucket, deleting outdated ones.
-
-Invalidate CloudFront cache: Clears cached files so users see updates immediately.     
-
-5. GitHub Secrets
-
-I added the following secrets in my repo:
-
-AWS_ACCESS_KEY_ID → IAM user key.
-
-AWS_SECRET_ACCESS_KEY → IAM user secret.
-
-AWS_REGION → the region that my bucket is.
-
-S3_BUCKET → myS3BucketName.
-
-CLOUDFRONT_DIST_ID → The ID of my distribution.
-
-6. Local Testing with AWS CLI
-
-Before automation, I verified manually:
-
-    Upload files to S3:
-
-        aws s3 sync . s3://myportfolio-website-jeffiberdothomas --delete
-
-    Invalidate CloudFront cache:
-
-        aws cloudfront create-invalidation --distribution-id E1H46KDGTDFK68 --paths "/*"
-
-    Confirmed updates in the S3 console and CloudFront invalidations tab.
-
-7. Deployment Flow
-
-    1. Edit files in VS Code.
-
-    2. Commit and push to GitHub (main branch).
-
-    3. GitHub Actions runs automatically:
-
-        a. Syncs files to S3.
-
-        b. Invalidates CloudFront cache.
-
-    4.  CloudFront serves the updated site globally.
-
-    5. Users see the latest version when visiting my CloudFront domain or custom domain.
-
-✅ Summary of Achievements
-
-Built a static portfolio site hosted on S3.
-
-Secured and accelerated delivery with CloudFront.
-
-Created a dedicated IAM user with least–privilege permissions.
-
-Automated deployment pipeline using GitHub Actions.
-
-Verified everything locally with AWS CLI.
-
-Connected VS Code → GitHub → AWS for seamless updates.
-
-Also
-
-This project hosts **jeffiberdothomas.com** on AWS with a fully automated CI/CD pipeline (VS Code → GitHub → Actions → S3 → CloudFront).  
-A key part of the setup is enforcing a **canonical redirect** so that all traffic resolves to the root domain:
-
-- ✅ `http://jeffiberdothomas.com` → `https://jeffiberdothomas.com`
-- ✅ `http://www.jeffiberdothomas.com` → `https://jeffiberdothomas.com`
-- ✅ `https://www.jeffiberdothomas.com` → `https://jeffiberdothomas.com`
-
+Every push to `main` triggers a GitHub Actions workflow that deploys the latest version of the site automatically.
 
 ---
 
-## Steps Taken for Canonical Redirect
+# 🧱 1. Project Overview
 
-1. **Created S3 Buckets**
-   - `jeffiberdothomas.com` → Primary hosting bucket (static site hosting disabled, used only with CloudFront).
-   - `www.jeffiberdothomas.com` → Redirect bucket configured to forward all requests to the root domain.
+This project uses:
 
-2. **Configured Redirect Bucket**
-   - Enabled static website hosting on the `www` bucket.
-   - Set redirect rules to forward all traffic to `https://jeffiberdothomas.com`.
+- **Amazon S3** → Private bucket for static hosting  
+- **Amazon CloudFront** → CDN for global delivery  
+- **GitHub Actions** → Automated CI/CD pipeline  
+- **Route 53 + ACM** → DNS + HTTPS  
+- **S3 Redirect Bucket** → Canonical redirect from `www` → root domain  
 
-3. **Set Up Route 53 Records**
-   - Added `A` and `AAAA` records for both root and `www` domains.
-   - Pointed them to the CloudFront distribution.
+Deployment is fully automated:
 
-4. **Provisioned SSL Certificates (ACM)**
-   - Requested certificates for both `jeffiberdothomas.com` and `www.jeffiberdothomas.com`.
-   - Validated via DNS in Route 53.
-
-5. **Deployed CloudFront Distribution**
-   - Origin: S3 bucket (`jeffiberdothomas.com`).
-   - Alternate domain names: `jeffiberdothomas.com`, `www.jeffiberdothomas.com`.
-   - Attached ACM certificate for HTTPS.
-   - Configured default behavior to enforce HTTPS.
-
-6. **Verified Redirects**
-   - Used `curl -I http://www.jeffiberdothomas.com` → Confirmed `301 Moved Permanently` to `https://jeffiberdothomas.com`.
-   - Tested in browser to ensure seamless redirect.
+1. Push to GitHub  
+2. GitHub Actions syncs files to S3  
+3. CloudFront cache is invalidated  
+4. Users instantly see the latest version  
 
 ---
 
-## Result
+# 🏗️ 2. Architecture Diagram (Mermaid)
 
-All traffic, whether typed with or without `www`, is redirected to the secure root domain:
+```mermaid
+flowchart TD
 
-**👉 https://jeffiberdothomas.com**
+A[Developer: VS Code] --> B[Git Commit & Push]
+B --> C[GitHub Actions CI/CD]
 
-This guarantees a single canonical URL and it is AWS best practices.
+C -->|Sync Files| D[S3 Bucket: jeffiberdothomas.com]
+C -->|Create Invalidation| E[CloudFront Distribution]
+
+E -->|Requests Objects| D
+E -->|Serves Globally| F[Users Worldwide]
+
+subgraph Redirect Flow
+G[www.jeffiberdothomas.com Bucket] -->|301 Redirect| H[https://jeffiberdothomas.com]
+end
+```
+
+---
+
+# 🔐 3. IAM User Setup
+
+A dedicated IAM user (`github-s3-cloudfront-deployer`) was created with **least‑privilege** permissions:
+
+### S3 Permissions
+- `PutObject`
+- `DeleteObject`
+- `ListBucket`
+- `GetObject`
+
+### CloudFront Permissions
+- `cloudfront:CreateInvalidation`
+
+### GitHub Secrets
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+- `S3_BUCKET`
+- `CLOUDFRONT_DIST_ID`
+
+---
+
+# 📁 4. Repository Structure
+
+```
+/
+├── index.html
+├── style.css
+├── images/
+├── JavaScript/
+│   ├── menu.js          → Mobile navigation toggle
+│   ├── carousel.js      → Image/text carousel logic
+│   ├── animations.js    → UI animations & transitions
+│   └── profile.js       → Profile section interactions
+└── favicon.ico
+```
+
+All JavaScript files are modular and organized inside the `JavaScript/` folder.
+
+---
+
+# ⚙️ 5. GitHub Actions Deployment Pipeline
+
+Located at: `.github/workflows/deploy.yml`
+
+### Workflow Summary
+
+- Checkout repository  
+- Configure AWS credentials  
+- Sync files to S3  
+- Invalidate CloudFront cache  
+
+### Deployment Flow
+
+1. Edit in VS Code  
+2. Commit + push  
+3. GitHub Actions deploys automatically  
+4. CloudFront serves the updated site globally  
+
+---
+
+# 🧪 6. Local Testing with AWS CLI
+
+Before automation, deployment was tested manually:
+
+```bash
+aws s3 sync . s3://myportfolio-website-jeffiberdothomas --delete
+aws cloudfront create-invalidation --distribution-id E1H46KDGTDFK68 --paths "/*"
+```
+
+---
+
+# 🌐 7. Canonical Redirect Configuration
+
+To enforce a single canonical domain (`https://jeffiberdothomas.com`):
+
+### S3 Buckets
+- `jeffiberdothomas.com` → Primary hosting bucket (private)  
+- `www.jeffiberdothomas.com` → Redirect bucket  
+
+### Route 53
+- A + AAAA records for both root and `www`  
+- Both point to CloudFront  
+
+### ACM Certificate
+- Covers both domains  
+- Attached to CloudFront  
+
+### Verification
+```
+curl -I http://www.jeffiberdothomas.com
+→ 301 Moved Permanently → https://jeffiberdothomas.com
+```
+
+---
+
+# 🐛 8. Debugging Case Sensitivity Issue (Important Lesson)
+
+During deployment, all JavaScript files returned **403 Forbidden**:
+
+```
+menu.js:1 Failed to load resource: 403
+carousel.js:1 Failed to load resource: 403
+animations.js:1 Failed to load resource: 403
+```
+
+### Root Cause
+
+S3 is **case‑sensitive**.
+
+Actual folder:
+
+```
+JavaScript/
+```
+
+HTML referenced:
+
+```
+javascript/
+```
+
+CloudFront requested files that **did not exist**, and S3 returned:
+
+```
+403 AccessDenied
+```
+
+instead of 404.
+
+### Fix
+
+Updated HTML paths:
+
+```html
+<script src="JavaScript/menu.js"></script>
+<script src="JavaScript/carousel.js"></script>
+<script src="JavaScript/animations.js"></script>
+```
+
+### Key Takeaways
+
+- S3 object keys are case‑sensitive  
+- CloudFront returns 403 for missing objects  
+- Always verify folder names and paths  
+- Debugging cloud deployments requires checking both infrastructure and code  
+
+---
+
+# 🧰 9. Tech Stack
+
+### **Frontend**
+- HTML5  
+- CSS3  
+- Vanilla JavaScript  
+- Modular JS architecture (menu, carousel, animations, profile)
+
+### **Cloud Infrastructure**
+- Amazon S3 (private hosting)  
+- Amazon CloudFront (CDN)  
+- Route 53 (DNS)  
+- ACM (SSL certificates)  
+- IAM (least‑privilege deployment user)
+
+### **CI/CD**
+- GitHub Actions  
+- AWS CLI  
+- Automated invalidation + sync pipeline  
+
+---
+
+# 🚀 10. Future Enhancements
+
+- Add dark mode toggle  
+- Add lazy‑loading for images  
+- Add contact form using AWS Lambda + SES  
+- Add Lighthouse performance optimization  
+- Add structured metadata for SEO  
+- Add animated page transitions  
+- Add blog section powered by Markdown  
+
+---
+
+# 🏁 11. Summary of Achievements
+
+- Fully automated CI/CD pipeline  
+- Secure private S3 hosting  
+- Global delivery via CloudFront  
+- Canonical redirect implementation  
+- Modular JavaScript architecture  
+- Real‑world debugging experience  
+- Professional cloud‑ready portfolio  
+
+---
