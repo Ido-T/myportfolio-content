@@ -3,7 +3,7 @@ name: Deploy Portfolio to AWS
 on:
   push:
     branches:
-      - main   # or your default branch
+      - main
 
 jobs:
   deploy:
@@ -21,7 +21,13 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Sync files to S3
-        run: aws s3 sync . s3://${{ secrets.S3_BUCKET }} --delete --exclude ".git/*" --exclude ".github/*"
+        run: aws s3 sync . s3://${{ secrets.S3_BUCKET }} \
+              --delete \
+              --exclude ".git/*" \
+              --exclude ".github/*" \
+              --acl bucket-owner-full-control
 
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
+        run: aws cloudfront create-invalidation \
+              --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} \
+              --paths "/*"
