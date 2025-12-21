@@ -86,14 +86,23 @@ header {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #fff;
+  background: #053970;
+  color: white;
+  display: flex;
+  align-items: center;   /* centers vertically */
+  justify-content: center; /* centers horizontally */
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  line-height: 40px;
   font-size: 1.5rem;
   cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease; /* for rotation */
 }
+.hamburger.active {
+  transform: rotate(90deg);
+}
+
+
 
 /* --------------------------------------------------
    SIDE MENU
@@ -103,13 +112,14 @@ header {
   top: 65px;
   right: -220px;
   width: 200px;
-  background: #053970;
+  background: rgba(5, 57, 112, 0.85); /* semi-transparent for blur */
   color: #eef1f4;
-  transition: right 0.3s ease;
+  transition: right 0.35s ease;
   padding: 1rem 0;
   border-radius: 10px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.35);
   z-index: 999;
+  backdrop-filter: blur(10px); /* 🔥 blur effect */
 }
 
 #sideMenu.open {
@@ -123,18 +133,31 @@ header {
 }
 
 #sideMenu li {
-  padding: 15px 20px;
+  padding: 8px 0;
 }
 
 #sideMenu a {
   color: white;
   text-decoration: none;
-  display: block;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
   transition: background 0.2s;
 }
 
 #sideMenu a:hover {
   background: #13bce61a;
+}
+
+#sideMenu ul li {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#sideMenu.open ul li {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* --------------------------------------------------
